@@ -1,0 +1,115 @@
+<div class="container mt-4">
+  <h2 class="mb-3">User Form (API Integration)</h2>
+
+  <form [formGroup]="empForm" (ngSubmit)="saveUser()">
+    <div class="row">
+      <div class="col">
+        <label for="exampleFormControlInput1" class="form-label">Name</label>
+        <input type="text" class="form-control" formControlName="name" id="exampleFormControlInput1"
+          placeholder="Enter Name">
+        <div
+          *ngIf="empForm.controls['name'].invalid && (empForm.controls['name'].dirty || empForm.controls['name'].touched)"
+          class="alert alert-danger">
+          <div *ngIf="empForm.controls['name'].errors?.['required']">
+            Name is required.
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <label for="exampleFormControlInput1" class="form-label">Email</label>
+        <input type="email" class="form-control" formControlName="emailId" id="exampleFormControlInput1"
+          placeholder="Enter Email">
+          <div
+          *ngIf="empForm.controls['emailId'].invalid && (empForm.controls['emailId'].dirty || empForm.controls['emailId'].touched)"
+          class="alert alert-danger">
+          <div *ngIf="empForm.controls['emailId'].errors?.['required']">
+            Email is required.
+          </div>
+          <div *ngIf="empForm.controls['emailId'].errors?.['email']">
+            Email is required.
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <label for="exampleFormControlInput1" class="form-label">Mobile</label>
+        <input type="text" class="form-control" formControlName="mobile" id="exampleFormControlInput1"
+          placeholder="Enter Mobile">
+          <div
+          *ngIf="empForm.controls['mobile'].invalid && (empForm.controls['mobile'].dirty || empForm.controls['mobile'].touched)"
+          class="alert alert-danger">
+          <div *ngIf="empForm.controls['mobile'].hasError('minlength')">
+            Minimum length is 10 digit.
+          </div>
+          <div *ngIf="empForm.controls['mobile'].hasError('maxlength')">
+            Maximum length is 10 digit.
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <label for="exampleFormControlInput1" class="form-label">Country</label>
+        <select class="form-select" formControlName="country" aria-label="Default select example">
+
+          <option *ngFor="let item of countryList" value="">{{item.country}}</option>
+        </select>
+      </div>
+
+      <div class="col">
+        <label for="exampleFormControlInput1" class="form-label">State</label>
+        <input type="text" class="form-control" formControlName="state" id="exampleFormControlInput1"
+          placeholder="Enter State">
+          <div
+          *ngIf="empForm.controls['state'].invalid && (empForm.controls['state'].dirty || empForm.controls['state'].touched)"
+          class="alert alert-danger">
+          <div *ngIf="empForm.controls['state'].errors?.['required']">
+            State is required.
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <label for="exampleFormControlInput1" class="form-label">District</label>
+        <input type="text" class="form-control" formControlName="district" id="exampleFormControlInput1"
+          placeholder="Enter District">
+      </div>
+      <div class="col">
+
+        <button type="submit" class="btn btn-primary">
+          {{ selectedEmpId ? 'Update' : 'Add' }} Employee
+        </button>
+        <button type="button" class="btn btn-secondary ms-2" (click)="resetForm()">Reset</button>
+      </div>
+    </div>
+  </form>
+
+  <hr />
+
+  <h4>User List</h4>
+  <div class="row">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Sr.No</th>
+          <th scope="col">Name</th>
+          <th scope="col">Email</th>
+          <th scope="col">Mobile</th>
+          <th scope="col">Country</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let emp of empList;let i = index">
+          <th>{{i+1}}</th>
+          <td>{{emp.name}}</td>
+          <td>{{emp.emailId}}</td>
+          <td>{{emp.mobile}}</td>
+          <td>{{emp.country}}</td>
+          <td>
+            <button class="btn btn-primary" (click)="editEmp(emp)">Edit</button>
+            <button class="btn btn-danger" (click)="deleteEmp(emp.id)">Edit</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>
